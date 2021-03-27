@@ -34,3 +34,8 @@ deb http://repo.mysql.com/apt/ubuntu/ focal mysql-tools
 #deb http://repo.mysql.com/apt/ubuntu/ focal mysql-tools-preview
 deb-src http://repo.mysql.com/apt/ubuntu/ focal mysql-8.0
 ```
+
+
+For raw MySQL server, not docker, I followed the below article:
+INSTALLING MYSQL 8.0 UNDER WSL 2 AND UBUNTU
+https://www.58bits.com/blog/2020/05/03/installing-mysql-80-under-wsl-2-and-ubuntu
