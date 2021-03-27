@@ -60,3 +60,21 @@ then the following worked:
 ```
  mysql -h 127.0.0.1 -P 13306 -u root --password=example 
 ```
+
+Earlier I saw the below error:
+
+```
+ERROR: for docker-compose-sandbox_db_1  Cannot start service db: Ports are not available: listen tcp 0.0.0.0:3306: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+
+ERROR: for db  Cannot start service db: Ports are not available: listen tcp 0.0.0.0:3306: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+```
+
+So I used the port 13306.
+Using 3306 port worked after killing MySQL server on the Windows side
+
+```
+    ports:
+      - 3306:330
+```
+
+
