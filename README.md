@@ -45,3 +45,19 @@ then:
 ```
 mysql -h 127.0.0.1 -u root -p 
 ```
+
+
+
+for docker compose, I added 
+
+```
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 13306:330
+```
+
+then the following worked:
+
+```
+ mysql -h 127.0.0.1 -P 13306 -u root --password=example 
+```
