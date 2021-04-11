@@ -74,7 +74,9 @@ Using 3306 port worked after killing MySQL server on the Windows side
 
 ```
     ports:
-      - 3306:330
+      - 3306:3306
 ```
+
+
 
 
