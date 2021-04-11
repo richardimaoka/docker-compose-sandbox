@@ -1,0 +1,1 @@
+alter table groups drop column parent_id;

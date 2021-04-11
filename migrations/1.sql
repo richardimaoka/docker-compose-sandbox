@@ -1,0 +1,11 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE IF EXISTS `map_user_group`;
+DROP TABLE IF EXISTS `map_group_role`;
+DROP TABLE IF EXISTS `groups`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `service`;
+DROP TABLE IF EXISTS `resource`;
+DROP TABLE IF EXISTS `map_group_resource`;
+DROP TABLE IF EXISTS `resource_type`;
