@@ -74,12 +74,25 @@ Using 3306 port worked after killing MySQL server on the Windows side
       - 3306:3306
 ```
 
+## Trying migration with docker container
+
 ```console
 # --network: docker network ls
 # -path: seems ok with /migrations/, as otherwise it gives a different error = error: open /migrationsssssss: no such file or directory
 # tcp(db:3306): cannot be 127.0.0.1 because the db container is on a different IP
 docker run -v migrations:/migrations --network docker-compose-sandbox_default migrate/migrate -path=/migrations/ -database "mysql://root:example@tcp(db:3306)/mysql?multiStatements=true" up 2
 error: first : file does not exist
+```
+
+```console
+mysql -h 127.0.0.1 -P 3306
+mysql> CREATE DATABASE myowndb;
+```
+
+```console
+docker run -v migrations:/migrations --network docker-compose-sandbox_default migrate/migrate -path=/migrations/  -database "mysql://root:example@tcp(db:3306)/myowndb?multiStatements=true" up 1 --verbose
+
+error: migration failed in line 0:  (details: Error 1065: Query was empty)
 ```
 
 ## Use in your Go project
