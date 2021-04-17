@@ -24,7 +24,7 @@ drwxr-xr-x 7 root root 4096 Mar 27 10:35 ..
 -rw-r--r-- 1 root root  142 Mar 17 21:37 wireshark-dev-ubuntu-stable-focal.list
 -rw-r--r-- 1 root root  142 Mar 17 21:37 wireshark-dev-ubuntu-stable-focal.list.save
 
-cat /etc/apt/sources.list.d/mysql.list 
+cat /etc/apt/sources.list.d/mysql.list
 ### THIS FILE IS AUTOMATICALLY CONFIGURED ###
 # You may comment out entries below, but any other modifications may be lost.
 # Use command 'dpkg-reconfigure mysql-apt-config' as root for modifications.
@@ -35,20 +35,17 @@ deb http://repo.mysql.com/apt/ubuntu/ focal mysql-tools
 deb-src http://repo.mysql.com/apt/ubuntu/ focal mysql-8.0
 ```
 
-
 For raw MySQL server, not docker, I followed the below article:
 INSTALLING MYSQL 8.0 UNDER WSL 2 AND UBUNTU
 https://www.58bits.com/blog/2020/05/03/installing-mysql-80-under-wsl-2-and-ubuntu
 
-then: 
+## Attempt to bring up mysql server and connect
 
 ```
-mysql -h 127.0.0.1 -u root -p 
+mysql -h 127.0.0.1 -u root -p
 ```
 
-
-
-for docker compose, I added 
+for docker compose, I added
 
 ```
     ports:
@@ -58,7 +55,7 @@ for docker compose, I added
 then the following worked:
 
 ```
- mysql -h 127.0.0.1 -P 13306 -u root --password=example 
+ mysql -h 127.0.0.1 -P 13306 -u root --password=example
 ```
 
 Earlier I saw the below error:
@@ -77,7 +74,6 @@ Using 3306 port worked after killing MySQL server on the Windows side
       - 3306:3306
 ```
 
-
 ```console
 # --network: docker network ls
 # -path: seems ok with /migrations/, as otherwise it gives a different error = error: open /migrationsssssss: no such file or directory
@@ -86,3 +82,21 @@ docker run -v migrations:/migrations --network docker-compose-sandbox_default mi
 error: first : file does not exist
 ```
 
+## Use in your Go project
+
+Maybe I exited before finishing migration?
+
+```console
+➜ docker-compose-sandbox git:(main) ✗ go run main.go
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x60 pc=0x631f06]
+
+goroutine 1 [running]:
+github.com/golang-migrate/migrate.(*Migrate).lock(0x0, 0x0, 0x0)
+/home/richardimaoka/ghq/pkg/mod/github.com/golang-migrate/migrate@v3.5.4+incompatible/migrate.go:835 +0x46
+github.com/golang-migrate/migrate.(*Migrate).Steps(0x0, 0x2, 0x6a1010, 0x5)
+/home/richardimaoka/ghq/pkg/mod/github.com/golang-migrate/migrate@v3.5.4+incompatible/migrate.go:236 +0x3d
+main.main()
+/home/richardimaoka/ghq/src/github.com/richardimaoka/docker-compose-sandbox/main.go:21 +0xd0
+exit status 2
+```
