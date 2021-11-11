@@ -1,0 +1,4 @@
+{
+  "python.pythonPath": "/home/richardimaoka/.pyenv/shims/python",
+  "python.analysis.extraPaths": ["lib/python3.9/site-packages"]
+}
